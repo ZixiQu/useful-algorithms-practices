@@ -12,3 +12,9 @@ def quick_sort(lst: list) -> list:
             elif each >= pivot:
                 big.append(each)
         return quick_sort(small) + [pivot] + quick_sort(big)
+
+
+
+if __name__ == "__main__":
+    lst = [5,4,3,2,1]
+    print(quick_sort(lst))
