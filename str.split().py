@@ -1,6 +1,6 @@
 def split(s: str, sep=" \n\t"):
     """ simimulating python str.split()"""
-    print(sep)
+    # print(sep)
     result = [""]
     for each in s:
         if not each in sep:
