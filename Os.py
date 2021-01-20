@@ -12,6 +12,8 @@ few things about os:
     os.makedirs("top_level\\sub_level"): make a dir recursively; 
                 create a folder <top_level> under current work dir
                 create a sub-folder in <top_level> called <sub_level>
+
+    os.remove(filename: str): remove <filename>. 
     os.rmdir("top_level\\sub_level"): remove <sub_level>
     os.removedirs("top_level\\sub_level"): recursively remove everything along this path.
     os.rename(old, new): rename the file <old> with new name <new>
@@ -74,4 +76,6 @@ if __name__ == '__main__':
     # _demo_of_oswalk()
     # print(os.path.exists("\\Administrator\\Desktop\\useful-algorithms-practices"))
     print(note)
-    
+
+    import pprint 
+    pprint.pprint(dict(os.environ), width=1)

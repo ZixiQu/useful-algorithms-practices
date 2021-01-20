@@ -1,1 +1,1 @@
-python pyinstaller --noconsole --onefile --icon=pic.ico main.py
+pyinstaller --noconsole --onefile --icon=pic.ico main.py
