@@ -27,7 +27,7 @@ def honoi_list(n, a, b, c) -> list:
 
 if __name__ == "__main__":
 	# print(move_tuple("A", "B"), type(move_tuple("A", "B")))
-	result = honoi_list(6, "A", "B", "C") 
+	result = honoi_list(4, "A", "B", "C") 
 	step = 1
 	while result:
 		thing = result.pop(0)
