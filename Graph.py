@@ -1,82 +1,83 @@
-from __future__ import annotations
-from typing import Union
-import random
-
-class Edge:
-    def __init__(self, edge: tuple[int, int], weight: int=0):
-        self.edge = edge
-        self.weight = weight
-
-    def __eq__(self, other: Union[tuple, Edge]):
-        if not isinstance(other, tuple) and not isinstance(other, Edge):
-            raise TypeError(f"{other} is not type tuple or Edge: {type(other)}")
-        if isinstance(other, tuple):
-            return self.edge == other or self.edge == (other[1], other[0])
-        if isinstance(other, Edge):
-            return self.edge == other.edge or self.edge == (other.edge[1], other.edge[0])
-        
-
-    def __repr__(self):
-        return "{}{}".format(self.edge, f": {self.weight}" if self.weight != 0 else "")
-
-    def change_weight(self, value):
-        self.weight = value
+from helperclass import *
 
 class Graph:
-    def __init__(self, v_num: int=5, full: bool=False):
-        self.vertices = [i for i in range(v_num)] 
-        self.edges = []
-        if full:
-            for i in range(len(self.vertices)):
-                for j in range(i):
-                    self.edges.append(Edge((i, j)))
+    def __init__(self):
+        """ implementing graph using adjacency list"""
+        self.vertices = []
+        self.edges = {}
 
-    def __str__(self):
-        return f"{self.edges}"
+    def add_vertex(self, vertex):
+        if vertex not in self.vertices:
+            self.vertices.append(vertex)
+            self.edges[vertex] = LList()
 
-    def __len__(self) -> int:
-        """ return number of vertices"""
-        return len(self.vertices)
+    def add_edge(self, f, to):
+        """ <f> stands for from"""
+        assert f in self.vertices
 
-    def change_weight(self, edge, value) -> bool:
-        if not isinstance(edge, tuple) or len(edge) != 2:
-            raise TypeError(f"edge invalid: {edge}")
+        self.edges[f].append(Node(to))
+
+    def check_valid(self):
+        """ Graph is valid (valid: perform operations without error arise) iff:
+        1. no repeat vertices
+        2. no invalid edges (e.g: vertices: [1,2,3], edges: {3: 4 -> None})
+        """
+        hashtable = {}
+        for each in self.vertices:
+            if each in hashtable:
+                raise VertexRepeatError("1. {} repeat.".format(each))
+            hashtable[each] = 0
+
         for each in self.edges:
-            if each == edge:
-                each.change_weight(value)
+            curr = self.edges[each].head
+            while curr:
+                if curr.value not in self.vertices:
+                    raise ValueError("2 {} not exists".format(curr.value))
+                curr = curr.next
+
+    class VertexRepeatError(Exception):
+        pass
+
+    def BFS(self, start, target):
+        self.check_valid()
+        if start not in self.vertices or target not in self.vertices:
+            raise ValueError("BFS: vertex not found")
+        color_table = {}
+        for each in self.vertices:
+            color_table[each] = "white"
+        q = Queue()
+        q.enqueue(start)
+        while not q.is_empty():
+            curr = q.dequeue()
+            if curr == target:
                 return True
+
+            llcurr = self.edges[curr].head
+            while llcurr is not None:
+                if color_table[llcurr.value] == "white":
+                    color_table[llcurr.value] = "grey"
+                    q.enqueue(llcurr.value)
+                llcurr = llcurr.next
+
+            color_table[curr] = "black"
         return False
 
-    def add_edge(self, edge: tuple) -> bool:
-        for each in self.edges:
-            if each == edge:
-                return False
-        self.edges.append(Edge(edge))
-        return True
+
 
 
 if __name__ == "__main__":
-    g = Graph(5)
-    print(g.add_edge((0, 1)))
-    print(g.change_weight((0, 1), 8))
-
-    print(g.add_edge((0, 4)))
-    print(g.change_weight((0, 4), 10))
-
-    print(g.add_edge((1, 2)))
-    print(g.change_weight((1, 2), 2))
-
-    print(g.add_edge((1, 3)))
-    print(g.change_weight((1, 3), 3))
-
-    print(g.add_edge((2, 3)))
-    print(g.change_weight((2, 3), 12))
-
-    print(g.add_edge((1, 4)))
-    print(g.change_weight((1, 4), 5))
-
-    print(g.add_edge((3, 4)))
-    print(g.change_weight((3, 4), 5))
+    g = Graph()
+    for i in range(1, 9):
+        g.add_vertex(i)
+    g.add_edge(2, 5)
+    g.add_edge(3, 2)
+    g.add_edge(3, 4)
+    g.add_edge(4, 3)
+    g.add_edge(5, 7)
+    g.add_edge(8, 1)
+    g.add_edge(8, 6)
+    print(g.BFS(6, 7))
 
 
-    print(g)
+
+
