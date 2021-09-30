@@ -12,7 +12,7 @@ class Node:
         return self. __str__()
 
 
-class PriorityQueue:
+class PriorityQueue:  # from 2021.8.19  I don't think I fully understand the concept.... priorityQ is the ADT, I should implement Heap.
     """ 
     The Priority Queue based on int. 
     """
