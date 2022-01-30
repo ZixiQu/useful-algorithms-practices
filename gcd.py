@@ -29,7 +29,7 @@ def U(n):
 
 
 if __name__ == "__main__":
-    # print(gcd(30, 216))
-    print(U(8))
+    print(gcd(17,101))
+    # print(U(10))
 
-    print(U(10))
+    # print(U(10))

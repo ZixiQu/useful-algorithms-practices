@@ -21,8 +21,7 @@ def FindMax(PQ):
         return
     return PQ[1]
 
-
-def ExtractMax(PQ):
+def ExtractMin(PQ):
     if PQ == [0]:
         return
 
@@ -84,9 +83,6 @@ def Bubbleup(PQ, i):
         else:
             PQ[curr], PQ[curr // 2] = PQ[curr // 2], PQ[curr]
         curr //= 2
-
-
-   
 
 
 if __name__ == "__main__":

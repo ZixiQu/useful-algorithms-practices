@@ -23,7 +23,7 @@ def dijkstra(V, E, start):
     d[start] = 0
 
     while len(X) != len(V):
-        curr_v = ExtractMax(q)
+        curr_v = ExtractMin(q)
         if curr_v == None:
             break
         # print(curr_v.priority)
