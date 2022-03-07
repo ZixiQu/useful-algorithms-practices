@@ -10,6 +10,7 @@ def gcd(a, b):
     elif a % b == 0:
         return b
     else:
+        print(f"{a} = {b} x {int(a / b)} + {a % b}")
         return gcd(b, a % b)
 
 def U(n):
@@ -29,7 +30,5 @@ def U(n):
 
 
 if __name__ == "__main__":
-    print(gcd(17,101))
-    # print(U(10))
-
-    # print(U(10))
+    print(gcd(251328, 29))
+    
