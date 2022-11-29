@@ -1,9 +1,17 @@
+"""
+folder_size.py: list each folder size of the specified (OS)path sorted by size
+"""
+
 import os
 import pprint
 
 DEBUG = 0
 
 def _total_size(source):
+    """ this function was found somewhere online. 
+    By the time I realized I should reference the source, I couldn't 
+    found the web page. Thank you, whoever wrote this.
+    """
         total_size = os.path.getsize(source)
         for item in os.listdir(source):
             itempath = os.path.join(source, item)
@@ -17,7 +25,7 @@ def _total_size(source):
         return total_size
 
 def main():
-    basepath = 'F:/'
+    basepath = 'C:/'  # change this to target path!
     information = {}
     folder_total_size = 0
     file_total_size = 0
